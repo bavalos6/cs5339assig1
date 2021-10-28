@@ -5,11 +5,10 @@ class Token{
     public $type;
     public $value;
 
-    public function _construct($theType, $theValue){
+    function __construct($theType, $theValue){
         $this->type =  $theType;
         $this->value = $theValue;
-    }   
-
+    }
 }
 
 ?>

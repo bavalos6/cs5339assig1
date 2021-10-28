@@ -1,19 +1,21 @@
 <?php
 
+include('Token.php');
+include('TokenType.php');
+
 class Tokenizer{
-    private $e = array(); //char array containing input file characters
+    private $e; //char array containing input file characters
     private $i; //index of the current charcater
-    public $currentChar; //the actual current character 
 
     //constructor
-    public function _construct($s){
+    public function __construct($s){
         $this->e = str_split($s);
         $this->i = 0;
     }
 
     public function nextToken(){
         //skip blanklike characters
-        while(($this->i < count($this->e)) && (strpos(" \n\t\r", $this->e[$this->i]) >= 0)){    
+        while($this->i < count($this->e) && strpos(" \t\n\r", $this->e[$this->i]) !== FALSE){    
             $this->i++;
         }
 
@@ -23,25 +25,25 @@ class Tokenizer{
 
         //check for INT
         $inputString = "";
-        while(($this->i < count($this->e)) && (strpos("0123456789", $this->e[$this->i]) >= 0)){
+        while($this->i < count($this->e) && strpos("0123456789", $this->e[$this->i]) !== FALSE){
             $inputString .= $this->e[$this->i++];
         }
 
         if("" !== $inputString){
-            return new Token($TokenType->INT, $inputString);
+            return new Token(TokenType::INT, $inputString);
         }
 
         //check for ID or reserved word
-        while(($this->i < count($this->e)) && (strpos("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_", $this->e[$this->i]) >= 0)){
+        while($this->i < count($this->e) && strpos("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_", $this->e[$this->i]) !== FALSE){
             $inputString .= $this->e[$this->i++];
         }
 
-        if("" !== $inputString){
+        if(!"" == $inputString){
             if("if" == $inputString){
-                return new Token(TokenType::IF);
+                return new Token(TokenType::IF, $inputString);
             }
             if("else" == $inputString){
-                return new Token(TokenType::ELSE);
+                return new Token(TokenType::ELSE, $inputString);
             }
             return new Token(TokenType::ID, $inputString);
         }
@@ -64,13 +66,13 @@ class Tokenizer{
                 return new Token(TokenType::EQUAL, '=');
             case '"':
                 $value = "";
-                while(($this->i < count($this->e)) && ($this->e[$this->i] != '"')){
+                while($this->i < count($this->e) && $this->e[$this->i] != '"'){
                     $c = $this->e[$this->i++];
                     if($this->i >= count($this->e)){
-                        return new Token(TokenType::OTHER);
+                        return new Token(TokenType::OTHER, "");
                     }
                     // check for escaped double quote
-                    if(($c == '\\') && ($this->e[$this->i] == '"')){
+                    if($c == '\\' && $this->e[$this->i] == '"'){
                         $c = '"';
                         $this->i++;
                     }
@@ -80,7 +82,7 @@ class Tokenizer{
                 return new Token(TokenType::STRING, $value);
             default:
                 // OTHER should result in exception
-                return new Token(TokenType::OTHER);
+                return new Token(TokenType::OTHER,"");
         }
     }
     

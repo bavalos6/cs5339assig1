@@ -1,20 +1,52 @@
 <?php
 
-abstract class TokenType{
-    const LBRACKET = 0;
-    const RBRACKET = 1;
-    const LSQUAREBRACKET = 2;
-    const RSQUAREBRACKET = 3;
-    const STRING= 4;
-    const EQUAL = 5;
-    const LESS = 6;
-    const GREATER = 7;
-    const IF = 8;
-    const ELSE = 9;
-    const ID = 10;
-    const INT = 11;
-    const EOF = 12;
-    const OTHER = 13;
+// abstract class TokenType{
+//     const LBRACKET = 0;
+//     const RBRACKET = 1;
+//     const LSQUAREBRACKET = 2;
+//     const RSQUAREBRACKET = 3;
+//     const STRING= 4;
+//     const EQUAL = 5;
+//     const LESS = 6;
+//     const GREATER = 7;
+//     const IF = 8;
+//     const ELSE = 9;
+//     const ID = 10;
+//     const INT = 11;
+//     const EOF = 12;
+//     const OTHER = 13;
+// }
+
+class TokenType
+{
+    const LBRACKET = "LBRACKET";
+
+    const RBRACKET = "RBRACKET";
+    
+    const LSQUAREBRACKET = "LSQUAREBRACKET";
+    
+    const RSQUAREBRACKET = "RSQUAREBRACKET";
+    
+    const STRING = "STRING";
+    
+    const EQUAL = "EQUAL";
+    
+    const LESS = "LESS";
+    
+    const GREATER = "GREATER";
+    
+    const IF = "IF";
+    
+    const ELSE = "ELSE";
+    
+    const ID = "ID";
+    
+    const INT = "INT";
+    
+    const EOF = "EOF";
+    
+    const OTHER = "OTHER";
 }
+
 
 ?>
